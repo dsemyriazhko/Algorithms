@@ -95,12 +95,12 @@ public class Main {
             result.setRight(i);
         }
 
-        for (int i=0; i<matrix.length && (element < matrix[i][0] || matrix[i][matrix[i].length-1] < element); i++){
+        for (int i=result.getLeft(); i<result.getRight() && (element < matrix[i][0] || matrix[i][matrix[i].length-1] < element); i++){
             result.setTop(i+1);
         }
 
         result.setBottom(matrix.length-1);
-        for (int i=matrix.length-1; i>0 && (element < matrix[i][0] || matrix[i][matrix[i].length-1] < element); i--){
+        for (int i=result.getRight()-1; i>result.getLeft() && (element < matrix[i][0] || matrix[i][matrix[i].length-1] < element); i--){
             result.setBottom(i);
         }
 
