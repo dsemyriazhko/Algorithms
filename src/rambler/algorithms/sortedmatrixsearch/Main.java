@@ -55,6 +55,10 @@ public class Main {
         }
 
 	    Clip clip = trimByRange(matrix, searchedElement);
+        if (clip == null) {
+            System.out.println("Not found");
+            return;
+        }
 
 	    for (int i=clip.getTop(); i<=clip.getBottom(); i++){
 	        int j = binarySearch(matrix[i], clip.getLeft(), clip.getRight(), searchedElement);
@@ -86,21 +90,24 @@ public class Main {
 
     private static Clip trimByRange(int[][] matrix, int element) {
         Clip result = new Clip();
-        for (int i=0; i<matrix.length && (element < matrix[0][i] || matrix[matrix.length-1][i] < element); i++){
+        for (int i=0; i<matrix[0].length && (element < matrix[0][i] || matrix[matrix.length-1][i] < element); i++){
             result.setLeft(i+1);
         }
 
-        result.setRight(matrix.length-1);
-        for (int i=matrix.length-1; i>0 && (element < matrix[0][i] || matrix[matrix.length-1][i] < element); i--){
+        result.setRight(matrix[0].length-1);
+        for (int i=matrix[0].length-1; i>0 && (element < matrix[0][i] || matrix[matrix.length-1][i] < element); i--){
             result.setRight(i);
         }
 
-        for (int i=result.getLeft(); i<result.getRight() && (element < matrix[i][0] || matrix[i][matrix[i].length-1] < element); i++){
+        if (result.getLeft() > result.getRight())
+            return null;
+
+        for (int i=0; i<matrix.length && (element < matrix[i][result.getLeft()] || matrix[i][result.getRight()] < element); i++){
             result.setTop(i+1);
         }
 
         result.setBottom(matrix.length-1);
-        for (int i=result.getRight()-1; i>result.getLeft() && (element < matrix[i][0] || matrix[i][matrix[i].length-1] < element); i--){
+        for (int i=matrix.length-1; i>0 && (element < matrix[i][result.getLeft()] || matrix[i][result.getRight()] < element); i--){
             result.setBottom(i);
         }
 
@@ -119,27 +126,29 @@ public class Main {
 //            System.out.println();
 //        }
 
-        int[][] ints = new int[4][4];
+        int[][] ints = new int[2][2];
 
         ints[0][0]=1;
-        ints[0][1]=2;
-        ints[0][2]=3;
-        ints[0][3]=13;
-
-        ints[1][0]=4;
+        ints[0][1]=4;
+        ints[1][0]=2;
         ints[1][1]=5;
-        ints[1][2]=6;
-        ints[1][3]=14;
-
-        ints[2][0]=7;
-        ints[2][1]=8;
-        ints[2][2]=9;
-        ints[2][3]=15;
-
-        ints[3][0]=10;
-        ints[3][1]=11;
-        ints[3][2]=12;
-        ints[3][3]=16;
+//        ints[0][2]=3;
+//        ints[0][3]=13;
+//
+//        ints[1][0]=4;
+//        ints[1][1]=5;
+//        ints[1][2]=6;
+//        ints[1][3]=14;
+//
+//        ints[2][0]=7;
+//        ints[2][1]=8;
+//        ints[2][2]=9;
+//        ints[2][3]=15;
+//
+//        ints[3][0]=10;
+//        ints[3][1]=11;
+//        ints[3][2]=12;
+//        ints[3][3]=16;
 
         return ints;
     }
