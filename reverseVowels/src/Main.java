@@ -1,5 +1,3 @@
-package rambler.algorithms.reverseVowels;
-
 public class Main {
 
     public static void main(String[] args) {

@@ -1,5 +1,3 @@
-package NodeListTest;
-
 public class Program {
 
 	interface Node {

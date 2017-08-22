@@ -1,5 +1,3 @@
-package rambler.algorithms;
-
 import java.util.Stack;
 
 public class Main {

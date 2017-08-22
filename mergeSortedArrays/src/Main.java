@@ -1,9 +1,3 @@
-package home.algorithms;
-
-/**
- * You are given two sorted arrays, A and B, where A has a large enough buffer at the end to hold B.
- * Write a method to merge B into A in sorted order.
- */
 public class Main {
     public static void main(String[] args) {
         Integer[] A = {1, 3, 5, 7, null, null, null};
