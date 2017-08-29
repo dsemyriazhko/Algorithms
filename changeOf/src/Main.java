@@ -1,23 +1,24 @@
 public class Main {
     public static void main(String[] arg) {
         int changeOf = 10;
-
         int[] values = {1, 3, 7};
 
-//        for (int i=0; i<values.length; i++) {
-//            int n = values[i] + get(changeOf-values[i], values);
-//        }
+        getCharge(changeOf, values, "");
     }
 
-    public static int get(int changeOf, int[] values, StringBuilder result) {
-
-        if (changeOf <= 0)
-            return 0;
-
-        for (int i=0; i<values.length; i++) {
-            int n = values[i] + get(changeOf-values[i], values, result);
+    public static void getCharge(int changeOf, int[] values, String result) {
+        if (changeOf == 0) {
+            System.out.println(result);
+            return;
+        }
+        if (changeOf <= 0) {
+            return;
         }
 
+        for (int i=0; i<values.length; i++) {
+            getCharge(changeOf-values[i], values, result + values[i] + ", ");
+        }
 
+        return;
     }
 }
