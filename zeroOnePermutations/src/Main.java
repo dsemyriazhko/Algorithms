@@ -1,46 +1,22 @@
-import java.util.HashSet;
-
 public class Main {
-    private static HashSet<String> cache = new HashSet<>();
-
     public static void main(String[] args) {
-        int a = 2;
-        int b = 1;
+        int a = 1;
+        int b = 7;
 
-        StringBuilder input = new StringBuilder(a+b);
-        for (int i=0; i<a; ++i) {
-            input.append('0');
-        }
-        for (int i=0; i<b; ++i) {
-            input.append('1');
-        }
+        int result = findZeroOnesStringsWithNumberOfZeroes(a, b);
 
-        permuteString("", input.toString());
+        System.out.println(result);
     }
 
-    private static void permuteString(String beginningString, String endingString) {
-        if (endingString.length() <= 1) {
-            String result = beginningString + endingString;
-            if (!cache.contains(result) && isEndingAnotherChar(beginningString, endingString.charAt(0))) {
-                System.out.println(result);
-                cache.add(result);
-            }
+    private static int findZeroOnesStringsWithNumberOfZeroes(int a, int b) {
+        if (a - b > 1) {
+            return 0;
         }
-        else {
-            for (int i = 0; i < endingString.length(); i++) {
-                try {
-                    String newString = endingString.substring(0, i) + endingString.substring(i + 1);
 
-                    if (isEndingAnotherChar(beginningString, endingString.charAt(i)))
-                        permuteString(beginningString + endingString.charAt(i), newString);
-                } catch (StringIndexOutOfBoundsException exception) {
-                    exception.printStackTrace();
-                }
-            }
+        if (a == 0) {
+            return 1;
         }
-    }
 
-    private static boolean isEndingAnotherChar(String baseString, char value) {
-        return "".equals(baseString) || baseString.charAt(baseString.length()-1) != value;
+        return findZeroOnesStringsWithNumberOfZeroes(a-1, b-1) + findZeroOnesStringsWithNumberOfZeroes(a, b-1);
     }
 }
